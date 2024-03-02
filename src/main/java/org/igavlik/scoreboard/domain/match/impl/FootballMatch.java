@@ -34,7 +34,7 @@ public class FootballMatch implements Match {
 
   @Override
   public void updateMatchScore(int homeTeamSore, int awayTeamScore) {
-    if (!isStartedOrInProgress()) {
+    if (!isStartedAndInProgress()) {
       return;
     }
 

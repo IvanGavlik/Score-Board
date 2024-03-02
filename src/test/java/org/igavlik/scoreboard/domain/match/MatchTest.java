@@ -13,6 +13,12 @@ public class MatchTest {
   }
 
   @Test
+  public void createdMatchIsNotStarted() {
+    Match match = new FootballMatch("homeTeamName", "awayTeamName");
+    Assertions.assertNull(match.getStartedAt());
+  }
+
+  @Test
   public void getTeamsHaveValue() {
     Match match = new FootballMatch("homeTeamName", "awayTeamName");
     String home = match.getHomeTeam();
@@ -45,6 +51,14 @@ public class MatchTest {
   }
 
   @Test
+  public void startMatchHasStartedAT() {
+    Match match = new FootballMatch("homeTeamName", "awayTeamName");
+    match.startMatch();
+
+    Assertions.assertNotNull(match.getStartedAt());
+  }
+
+  @Test
   public void startMatchScoreIsNll() {
     Match match = new FootballMatch("homeTeamName", "awayTeamName");
     match.startMatch();
@@ -63,6 +77,7 @@ public class MatchTest {
     Assertions.assertEquals(1, match.getHomeTeamScore());
     Assertions.assertEquals(0, match.getAwayTeamScore());
     Assertions.assertTrue(match.isInProgress());
+    Assertions.assertNotNull(match.getStartedAt());
   }
 
   @Test
@@ -135,6 +150,7 @@ public class MatchTest {
     Assertions.assertEquals(0, match.getHomeTeamScore());
     Assertions.assertEquals(0, match.getAwayTeamScore());
     Assertions.assertFalse(match.isInProgress());
+    Assertions.assertNull(match.getStartedAt());
   }
 
   @Test
@@ -147,6 +163,7 @@ public class MatchTest {
     Assertions.assertEquals(1, match.getHomeTeamScore());
     Assertions.assertEquals(0, match.getAwayTeamScore());
     Assertions.assertTrue(match.isInProgress());
+    Assertions.assertNotNull(match.getStartedAt());
   }
 
   @Test
@@ -159,6 +176,7 @@ public class MatchTest {
     Assertions.assertEquals(1, match.getHomeTeamScore());
     Assertions.assertEquals(0, match.getAwayTeamScore());
     Assertions.assertFalse(match.isInProgress());
+    Assertions.assertNotNull(match.getStartedAt());
   }
 
   @Test
@@ -172,6 +190,7 @@ public class MatchTest {
     Assertions.assertEquals(1, match.getHomeTeamScore());
     Assertions.assertEquals(0, match.getAwayTeamScore());
     Assertions.assertFalse(match.isInProgress());
+    Assertions.assertNotNull(match.getStartedAt());
   }
 
   @Test
@@ -185,6 +204,22 @@ public class MatchTest {
     Assertions.assertEquals(1, match.getHomeTeamScore());
     Assertions.assertEquals(0, match.getAwayTeamScore());
     Assertions.assertFalse(match.isInProgress());
+    Assertions.assertNotNull(match.getStartedAt());
+  }
+
+  @Test
+  public void afterMatchIsFinishedCanNotBeStartedAndUpdate() {
+    Match match = new FootballMatch("homeTeam", "awayTeam");
+    match.startMatch();
+    match.updateMatchScore(1, 0);
+    match.finishMatch();
+    match.startMatch();
+    match.updateMatchScore(2, 0);
+
+    Assertions.assertEquals(1, match.getHomeTeamScore());
+    Assertions.assertEquals(0, match.getAwayTeamScore());
+    Assertions.assertFalse(match.isInProgress());
+    Assertions.assertNotNull(match.getStartedAt());
   }
 
 }

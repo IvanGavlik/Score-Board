@@ -25,4 +25,8 @@ public interface Match {
   default boolean isStartedOrInProgress() {
     return this.getStartedAt() != null || this.isInProgress();
   }
+
+  default boolean isStartedAndInProgress() {
+    return this.getStartedAt() != null && this.isInProgress();
+  }
 }
