@@ -10,6 +10,8 @@ public interface Match {
 
   int getAwayTeamScore();
 
+  boolean isInProgress();
+
   void startMatch();
 
   void updateMatchScore(int homeTeamSore, int awayTeamScore);

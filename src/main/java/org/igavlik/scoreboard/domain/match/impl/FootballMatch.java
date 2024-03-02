@@ -11,6 +11,8 @@ public class FootballMatch implements Match {
 
   private int awayTeamScore;
 
+  private boolean inProgress;
+
   public FootballMatch(String ht, String at) {
     this.homeTeam = ht;
     this.awayTeam = at;
@@ -20,10 +22,15 @@ public class FootballMatch implements Match {
   public void startMatch() {
     this.homeTeamScore = 0;
     this.awayTeamScore = 0;
+    this.inProgress = true;
   }
 
   @Override
   public void updateMatchScore(int homeTeamSore, int awayTeamScore) {
+    if (!this.isInProgress()) {
+      return;
+    }
+
     if (homeTeamSore > this.homeTeamScore) {
       this.homeTeamScore = homeTeamSore;
     }
@@ -51,5 +58,10 @@ public class FootballMatch implements Match {
   @Override
   public int getAwayTeamScore() {
     return awayTeamScore;
+  }
+
+  @Override
+  public boolean isInProgress() {
+    return this.inProgress;
   }
 }

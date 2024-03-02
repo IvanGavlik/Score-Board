@@ -7,6 +7,12 @@ import org.junit.jupiter.api.Test;
 public class MatchTest {
 
   @Test
+  public void createdMatchIsNotInProgress() {
+    Match match = new FootballMatch("homeTeamName", "awayTeamName");
+    Assertions.assertFalse(match.isInProgress());
+  }
+
+  @Test
   public void getTeamsHaveValue() {
     Match match = new FootballMatch("homeTeamName", "awayTeamName");
     String home = match.getHomeTeam();
@@ -31,6 +37,14 @@ public class MatchTest {
   }
 
   @Test
+  public void startMatchIsInProgress() {
+    Match match = new FootballMatch("homeTeamName", "awayTeamName");
+    match.startMatch();
+
+    Assertions.assertTrue(match.isInProgress());
+  }
+
+  @Test
   public void startMatchScoreIsNll() {
     Match match = new FootballMatch("homeTeamName", "awayTeamName");
     match.startMatch();
@@ -48,6 +62,7 @@ public class MatchTest {
 
     Assertions.assertEquals(1, match.getHomeTeamScore());
     Assertions.assertEquals(0, match.getAwayTeamScore());
+    Assertions.assertTrue(match.isInProgress());
   }
 
   @Test
@@ -112,8 +127,14 @@ public class MatchTest {
   }
 
   @Test
-  public void updateMatchCanNotBeCalledIfMatchNotStarted() {
-    // TODO
+  public void updateMatchCanNotAppliedIfMatchNotStarted() {
+    Match match = new FootballMatch("homeTeam", "awayTeam");
+
+    match.updateMatchScore(1, 0);
+
+    Assertions.assertEquals(0, match.getHomeTeamScore());
+    Assertions.assertEquals(0, match.getAwayTeamScore());
+    Assertions.assertFalse(match.isInProgress());
   }
 
 }
