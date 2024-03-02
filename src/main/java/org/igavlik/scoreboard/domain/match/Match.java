@@ -11,4 +11,6 @@ public interface Match {
   int getAwayTeamScore();
 
   void startMatch();
+
+  void updateMatchScore(int homeTeamSore, int awayTeamScore);
 }

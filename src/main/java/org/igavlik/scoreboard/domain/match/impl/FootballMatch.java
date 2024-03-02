@@ -23,9 +23,14 @@ public class FootballMatch implements Match {
   }
 
   @Override
-  public void updateScore(int ht, int at) {
-    this.homeTeamScore = ht;
-    this.awayTeamScore = at;
+  public void updateMatchScore(int homeTeamSore, int awayTeamScore) {
+    if (homeTeamSore > this.homeTeamScore) {
+      this.homeTeamScore = homeTeamSore;
+    }
+
+    if (awayTeamScore > this.awayTeamScore) {
+      this.awayTeamScore = awayTeamScore;
+    }
   }
 
   @Override

@@ -39,4 +39,81 @@ public class MatchTest {
     Assertions.assertEquals(0, match.getAwayTeamScore());
   }
 
+  @Test
+  public void updateMatchScore() {
+    Match match = new FootballMatch("homeTeam", "awayTeam");
+    match.startMatch();
+
+    match.updateMatchScore(1, 0);
+
+    Assertions.assertEquals(1, match.getHomeTeamScore());
+    Assertions.assertEquals(0, match.getAwayTeamScore());
+  }
+
+  @Test
+  public void updateMatchScoreToSame() {
+    Match match = new FootballMatch("homeTeam", "awayTeam");
+    match.startMatch();
+
+    match.updateMatchScore(1, 0);
+    match.updateMatchScore(1, 0);
+
+    Assertions.assertEquals(1, match.getHomeTeamScore());
+    Assertions.assertEquals(0, match.getAwayTeamScore());
+  }
+
+  @Test
+  public void updateMatchScoreTwice() {
+    Match match = new FootballMatch("homeTeam", "awayTeam");
+    match.startMatch();
+
+    match.updateMatchScore(1, 0);
+    match.updateMatchScore(2, 0);
+
+    Assertions.assertEquals(2, match.getHomeTeamScore());
+    Assertions.assertEquals(0, match.getAwayTeamScore());
+  }
+
+  @Test
+  public void updateMatchCanNotBeNegative() {
+    Match match = new FootballMatch("homeTeam", "awayTeam");
+    match.startMatch();
+
+    match.updateMatchScore(-1, 0);
+
+    Assertions.assertEquals(0, match.getHomeTeamScore());
+    Assertions.assertEquals(0, match.getAwayTeamScore());
+  }
+
+  @Test
+  public void updateMatchCanNotBeSmallerThanPrevious() {
+    Match match = new FootballMatch("homeTeam", "awayTeam");
+    match.startMatch();
+
+    match.updateMatchScore(1, 0);
+    match.updateMatchScore(2, 0);
+    match.updateMatchScore(1, 0);
+
+    Assertions.assertEquals(2, match.getHomeTeamScore());
+    Assertions.assertEquals(0, match.getAwayTeamScore());
+  }
+
+  @Test
+  public void updateMatchIsNotIncremental() {
+    Match match = new FootballMatch("homeTeam", "awayTeam");
+
+    match.startMatch();
+    Assertions.assertEquals(0, match.getHomeTeamScore());
+    Assertions.assertEquals(0, match.getAwayTeamScore());
+
+    match.updateMatchScore(2, 0);
+    Assertions.assertEquals(2, match.getHomeTeamScore());
+    Assertions.assertEquals(0, match.getAwayTeamScore());
+  }
+
+  @Test
+  public void updateMatchCanNotBeCalledIfMatchNotStarted() {
+    // TODO
+  }
+
 }
