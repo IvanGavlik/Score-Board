@@ -20,7 +20,6 @@ Here `doc/TechnicalDoc.odt`. Content
 * requirements
 * architecture
 * software deign
-* technology info
 
 ## Add Google code formatter (intellij)
 
