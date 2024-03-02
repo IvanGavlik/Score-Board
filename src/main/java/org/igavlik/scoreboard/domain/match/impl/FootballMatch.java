@@ -1,5 +1,6 @@
 package org.igavlik.scoreboard.domain.match.impl;
 
+import java.time.LocalDateTime;
 import org.igavlik.scoreboard.domain.match.Match;
 
 public class FootballMatch implements Match {
@@ -13,6 +14,8 @@ public class FootballMatch implements Match {
 
   private boolean inProgress;
 
+  private LocalDateTime startedAt;
+
   public FootballMatch(String ht, String at) {
     this.homeTeam = ht;
     this.awayTeam = at;
@@ -20,14 +23,18 @@ public class FootballMatch implements Match {
 
   @Override
   public void startMatch() {
+    if (isStartedOrInProgress()) {
+      return;
+    }
     this.homeTeamScore = 0;
     this.awayTeamScore = 0;
     this.inProgress = true;
+    this.startedAt = LocalDateTime.now();
   }
 
   @Override
   public void updateMatchScore(int homeTeamSore, int awayTeamScore) {
-    if (!this.isInProgress()) {
+    if (!isStartedOrInProgress()) {
       return;
     }
 
@@ -39,6 +46,14 @@ public class FootballMatch implements Match {
       this.awayTeamScore = awayTeamScore;
     }
   }
+
+  @Override
+  public void finishMatch() {
+    if (isStartedOrInProgress()) {
+      this.inProgress = false;
+    }
+  }
+
 
   @Override
   public String getHomeTeam() {
@@ -64,4 +79,10 @@ public class FootballMatch implements Match {
   public boolean isInProgress() {
     return this.inProgress;
   }
+
+  @Override
+  public LocalDateTime getStartedAt() {
+    return this.startedAt;
+  }
+
 }

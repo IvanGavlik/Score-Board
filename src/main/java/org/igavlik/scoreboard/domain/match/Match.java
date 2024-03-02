@@ -1,5 +1,7 @@
 package org.igavlik.scoreboard.domain.match;
 
+import java.time.LocalDateTime;
+
 public interface Match {
 
   String getHomeTeam();
@@ -12,7 +14,15 @@ public interface Match {
 
   boolean isInProgress();
 
+  LocalDateTime getStartedAt();
+
   void startMatch();
 
   void updateMatchScore(int homeTeamSore, int awayTeamScore);
+
+  void finishMatch();
+
+  default boolean isStartedOrInProgress() {
+    return this.getStartedAt() != null || this.isInProgress();
+  }
 }
