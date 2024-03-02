@@ -19,4 +19,24 @@ public class MatchTest {
     Assertions.assertFalse(away.isEmpty());
   }
 
+  @Test
+  public void getScoresNotNegative() {
+    Match match = new FootballMatch("homeTeamName", "awayTeamName");
+    int homeScore = match.getHomeTeamScore();
+    int awayScore = match.getAwayTeamScore();
+
+    Assertions.assertTrue(homeScore >= 0);
+    Assertions.assertTrue(awayScore >= 0);
+    ;
+  }
+
+  @Test
+  public void startMatchScoreIsNll() {
+    Match match = new FootballMatch("homeTeamName", "awayTeamName");
+    match.startMatch();
+
+    Assertions.assertEquals(0, match.getHomeTeamScore());
+    Assertions.assertEquals(0, match.getAwayTeamScore());
+  }
+
 }
