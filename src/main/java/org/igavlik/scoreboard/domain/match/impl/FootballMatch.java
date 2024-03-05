@@ -1,6 +1,7 @@
 package org.igavlik.scoreboard.domain.match.impl;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import org.igavlik.scoreboard.domain.match.Match;
 
 public class FootballMatch implements Match {
@@ -85,4 +86,20 @@ public class FootballMatch implements Match {
     return this.startedAt;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    FootballMatch that = (FootballMatch) o;
+    return Objects.equals(homeTeam, that.homeTeam) && Objects.equals(awayTeam, that.awayTeam);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(homeTeam, awayTeam);
+  }
 }
