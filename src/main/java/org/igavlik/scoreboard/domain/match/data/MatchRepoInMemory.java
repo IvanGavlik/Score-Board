@@ -1,4 +1,4 @@
-package org.igavlik.scoreboard.data.match;
+package org.igavlik.scoreboard.domain.match.data;
 
 import java.util.Comparator;
 import java.util.HashSet;
