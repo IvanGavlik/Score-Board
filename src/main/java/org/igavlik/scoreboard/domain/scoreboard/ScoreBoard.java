@@ -4,6 +4,6 @@ import java.util.List;
 import org.igavlik.scoreboard.domain.match.Match;
 
 public interface ScoreBoard {
-
+  
   List<Match> getMatchesInProgress();
 }
