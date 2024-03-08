@@ -237,9 +237,7 @@ public class MatchRepoInMemoryTest {
     match2.updateMatchScore(2, 1);
     matchRepo.save(match2);
 
-    Comparator<Match> byTotalScoreDes = (el1, el2) ->
-        (el2.getHomeTeamScore() + el2.getAwayTeamScore())
-            - (el1.getHomeTeamScore() + el1.getAwayTeamScore());
+    Comparator<Match> byTotalScoreDes = (el1, el2) -> el2.getTotalScore() - el1.getTotalScore();
     List<Match> matchList = matchRepo.filter(null, byTotalScoreDes);
     Assertions.assertEquals(2, matchList.size());
     Assertions.assertEquals("b", matchList.get(0).getHomeTeam());

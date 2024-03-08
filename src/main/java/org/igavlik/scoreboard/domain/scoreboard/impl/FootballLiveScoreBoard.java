@@ -19,7 +19,7 @@ public class FootballLiveScoreBoard implements ScoreBoard {
   public List<Match> getMatchesInProgress() {
     final int same = 0;
     Comparator<Match> byTotalScoreDescCreatedDesc = (Match m1, Match m2) -> {
-      int compare = Integer.compare(totalScore(m1), totalScore(m2));
+      int compare = Integer.compare(m2.getTotalScore(), m1.getTotalScore());
       if (compare == same) {
         return m2.getStartedAt().compareTo(m1.getStartedAt());
       }
@@ -28,7 +28,4 @@ public class FootballLiveScoreBoard implements ScoreBoard {
     return this.matchRepo.filter(Match::isInProgress, byTotalScoreDescCreatedDesc);
   }
 
-  private int totalScore(Match match) {
-    return match.getHomeTeamScore() + match.getAwayTeamScore();
-  }
 }

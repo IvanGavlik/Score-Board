@@ -16,6 +16,8 @@ public interface Match {
 
   LocalDateTime getStartedAt();
 
+  int getTotalScore();
+
   void startMatch();
 
   void updateMatchScore(int homeTeamSore, int awayTeamScore);

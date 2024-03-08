@@ -1,26 +1,14 @@
 package org.igavlik.scoreboard.domain.scoreboard;
 
 import java.util.List;
-import org.igavlik.scoreboard.data.Repo;
 import org.igavlik.scoreboard.domain.match.Match;
-import org.igavlik.scoreboard.domain.match.data.MatchRepoInMemory;
 import org.igavlik.scoreboard.domain.match.impl.FootballMatch;
 import org.igavlik.scoreboard.domain.scoreboard.impl.FootballLiveScoreBoard;
+import org.igavlik.scoreboard.util.RepoTest;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ScoreBoardTest {
-
-  private final Repo<Match> matchRepo = MatchRepoInMemory.INSTANCE;
-
-  @BeforeEach
-  public void init() {
-    // hack to delete data between test cases because we have singleton
-    getAll()
-        .forEach(matchRepo::delete);
-  }
-
+public class ScoreBoardTest extends RepoTest {
 
   @Test
   public void filterInProgress() {
@@ -53,7 +41,9 @@ public class ScoreBoardTest {
 
     Match matchTotalScoreBigger = matchList.get(0);
     Match matchTotalScoreSmaller = matchList.get(1);
-    Assertions.assertTrue(totalScore(matchTotalScoreBigger) > totalScore(matchTotalScoreSmaller));
+    Assertions.assertTrue(
+        matchTotalScoreBigger.getTotalScore() > matchTotalScoreSmaller.getTotalScore()
+    );
   }
 
   @Test
@@ -70,9 +60,31 @@ public class ScoreBoardTest {
     );
   }
 
-  // TODO refactor - duplicate
-  private List<Match> getAll() {
-    return matchRepo.filter(null, null);
+  @Test
+  public void sortScoresDate() {
+    totalScoresDiff();
+    startedDiff();
+
+    ScoreBoard scoreBoard = new FootballLiveScoreBoard(matchRepo);
+    List<Match> matchList = scoreBoard.getMatchesInProgress();
+
+    Match matchTotalScoreBigger = matchList.get(0);
+    Match matchTotalScoreSmaller = matchList.get(1);
+    Match sameScoreLatterStarted = matchList.get(2);
+    Match sameScoreEarlierStarted = matchList.get(3);
+
+    Assertions.assertTrue(
+        matchTotalScoreBigger.getTotalScore() > matchTotalScoreSmaller.getTotalScore()
+    );
+    Assertions.assertTrue(
+        matchTotalScoreSmaller.getTotalScore() > sameScoreLatterStarted.getTotalScore()
+    );
+    Assertions.assertEquals(sameScoreLatterStarted.getTotalScore(),
+        sameScoreEarlierStarted.getTotalScore());
+
+    Assertions.assertTrue(
+        sameScoreLatterStarted.getStartedAt().isAfter(sameScoreEarlierStarted.getStartedAt())
+    );
   }
 
   private void oneInProgress() {
@@ -107,22 +119,14 @@ public class ScoreBoardTest {
   }
 
   private void totalScoresDiff() {
-    Match m1 = new FootballMatch("a", "b");
+    Match m1 = new FootballMatch("a", "i");
     m1.startMatch();
     m1.updateMatchScore(2, 1);
     matchRepo.save(m1);
 
-    Match m2 = new FootballMatch("a", "d");
+    Match m2 = new FootballMatch("a", "j");
     m2.startMatch();
-    m2.updateMatchScore(2, 1);
+    m2.updateMatchScore(4, 0);
     matchRepo.save(m2);
   }
-
-
-  // TODO refactor - duplicate
-  private int totalScore(Match match) {
-    return match.getAwayTeamScore() * match.getHomeTeamScore();
-  }
-
-
 }

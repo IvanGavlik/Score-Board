@@ -87,6 +87,11 @@ public class FootballMatch implements Match {
   }
 
   @Override
+  public int getTotalScore() {
+    return this.homeTeamScore + this.awayTeamScore;
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;

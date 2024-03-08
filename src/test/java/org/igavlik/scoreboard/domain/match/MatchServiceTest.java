@@ -1,24 +1,13 @@
 package org.igavlik.scoreboard.domain.match;
 
 import java.util.List;
-import org.igavlik.scoreboard.data.Repo;
-import org.igavlik.scoreboard.domain.match.data.MatchRepoInMemory;
 import org.igavlik.scoreboard.domain.match.impl.FootballMatch;
 import org.igavlik.scoreboard.domain.match.impl.FootballMatchService;
+import org.igavlik.scoreboard.util.RepoTest;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class MatchServiceTest {
-
-  private final Repo<Match> matchRepo = MatchRepoInMemory.INSTANCE;
-
-  @BeforeEach
-  public void init() {
-    // hack to delete data between test cases because we have singleton
-    getAll()
-        .forEach(matchRepo::delete);
-  }
+public class MatchServiceTest extends RepoTest {
 
   @Test
   public void startMatch() {
@@ -138,12 +127,6 @@ public class MatchServiceTest {
 
     Assertions.assertEquals(0, getAll().size());
 
-  }
-
-
-  // TODO refactor - duplicate
-  private List<Match> getAll() {
-    return matchRepo.filter(null, null);
   }
 
 }
