@@ -36,3 +36,12 @@ SpotBugs is an open source tool used to perform static analysis on Java code.
 
 * `mvn spotbugs:check` make the build failed if it found any bugs
 * `mvn spotbugs:gui` goal launches SpotBugs GUI to check analysis result.
+
+## Run tests
+
+* `mvn test`
+
+## Build lib from source
+
+* `mvn package"`
+* lib is in `target/ScoreBoard-1.0.jar`
