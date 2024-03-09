@@ -222,4 +222,89 @@ public class MatchTest {
     Assertions.assertNotNull(match.getStartedAt());
   }
 
+  @Test
+  public void teamInTwoMatchesOneFirstInProgress() {
+    Match m1 = new FootballMatch("a", "b");
+    m1.startMatch();
+    Match m2 = new FootballMatch("f", "a");
+
+    boolean haveTeam = Match.isTeamInTwoMatchesWhereFirstIsInProgress(m1, m2);
+    Assertions.assertTrue(haveTeam);
+
+    m1 = new FootballMatch("a", "b");
+    m1.startMatch();
+    m2 = new FootballMatch("a", "f");
+
+    haveTeam = Match.isTeamInTwoMatchesWhereFirstIsInProgress(m1, m2);
+    Assertions.assertTrue(haveTeam);
+
+    m1 = new FootballMatch("a", "b");
+    m1.startMatch();
+    m2 = new FootballMatch("b", "f");
+
+    haveTeam = Match.isTeamInTwoMatchesWhereFirstIsInProgress(m1, m2);
+    Assertions.assertTrue(haveTeam);
+
+    m1 = new FootballMatch("a", "b");
+    m1.startMatch();
+    m2 = new FootballMatch("f", "b");
+
+    haveTeam = Match.isTeamInTwoMatchesWhereFirstIsInProgress(m1, m2);
+    Assertions.assertTrue(haveTeam);
+  }
+
+  @Test
+  public void teamInTwoMatchesOneSecondInProgress() {
+    Match m1 = new FootballMatch("a", "b");
+    m1.startMatch();
+    m1.finishMatch();
+    Match m2 = new FootballMatch("f", "a");
+    m2.startMatch();
+
+    boolean haveTeam = Match.isTeamInTwoMatchesWhereFirstIsInProgress(m1, m2);
+    Assertions.assertFalse(haveTeam);
+
+    m1 = new FootballMatch("a", "b");
+    m1.startMatch();
+    m1.finishMatch();
+    m2 = new FootballMatch("a", "f");
+    m2.startMatch();
+
+    haveTeam = Match.isTeamInTwoMatchesWhereFirstIsInProgress(m1, m2);
+    Assertions.assertFalse(haveTeam);
+
+    m1 = new FootballMatch("a", "b");
+    m1.startMatch();
+    m1.finishMatch();
+    m2 = new FootballMatch("b", "f");
+    m2.startMatch();
+
+    haveTeam = Match.isTeamInTwoMatchesWhereFirstIsInProgress(m1, m2);
+    Assertions.assertFalse(haveTeam);
+
+    m1 = new FootballMatch("a", "b");
+    m1.startMatch();
+    m1.finishMatch();
+    m2 = new FootballMatch("f", "b");
+    m2.startMatch();
+
+    haveTeam = Match.isTeamInTwoMatchesWhereFirstIsInProgress(m1, m2);
+    Assertions.assertFalse(haveTeam);
+  }
+
+  @Test
+  public void teamInTwoMatchesNullInput() {
+    boolean haveTeam = Match.isTeamInTwoMatchesWhereFirstIsInProgress(null, null);
+    Assertions.assertFalse(haveTeam);
+
+    Match m1 = new FootballMatch("a", "b");
+    m1.startMatch();
+
+    haveTeam = Match.isTeamInTwoMatchesWhereFirstIsInProgress(m1, null);
+    Assertions.assertFalse(haveTeam);
+
+    haveTeam = Match.isTeamInTwoMatchesWhereFirstIsInProgress(null, m1);
+    Assertions.assertFalse(haveTeam);
+  }
+
 }

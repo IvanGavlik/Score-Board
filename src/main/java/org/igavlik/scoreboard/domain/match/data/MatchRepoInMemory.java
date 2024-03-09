@@ -32,7 +32,7 @@ public final class MatchRepoInMemory implements Repo<Match> {
     if (match == null) {
       return;
     }
-    BiPredicate<Match, Match> findSameInProgress = Match::isTeamInTwoMatchesWhereOneIsInProgress;
+    BiPredicate<Match, Match> findSameInProgress = Match::isTeamInTwoMatchesWhereFirstIsInProgress;
     Optional<Match> existAndInProgress = this.data.stream()
         .filter(el -> findSameInProgress.test(el, match))
         .findAny();

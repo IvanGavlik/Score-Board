@@ -39,7 +39,10 @@ public interface Match {
    * @param match2 match that was created/started after match1
    * @return
    */
-  static boolean isTeamInTwoMatchesWhereOneIsInProgress(Match match1, Match match2) {
+  static boolean isTeamInTwoMatchesWhereFirstIsInProgress(Match match1, Match match2) {
+    if (match1 == null || match2 == null) {
+      return false;
+    }
     final String homeTeamM1 = match1.getHomeTeam();
     final String awayTeamM1 = match1.getAwayTeam();
     final String homeTeamM2 = match2.getHomeTeam();
