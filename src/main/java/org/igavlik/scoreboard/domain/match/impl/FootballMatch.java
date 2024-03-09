@@ -6,6 +6,8 @@ import org.igavlik.scoreboard.domain.match.Match;
 
 public class FootballMatch implements Match {
 
+  private static int idCounter = 0;
+  private int id = 0;
   private String homeTeam;
   private String awayTeam;
 
@@ -20,6 +22,8 @@ public class FootballMatch implements Match {
   public FootballMatch(String ht, String at) {
     this.homeTeam = ht;
     this.awayTeam = at;
+    idCounter += 1;
+    id = idCounter;
   }
 
   @Override
@@ -100,12 +104,11 @@ public class FootballMatch implements Match {
       return false;
     }
     FootballMatch that = (FootballMatch) o;
-    return Objects.equals(homeTeam, that.homeTeam) && Objects.equals(awayTeam, that.awayTeam)
-        && Objects.equals(inProgress, that.inProgress);
+    return Objects.equals(id, that.id);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(homeTeam, awayTeam, inProgress);
+    return Objects.hash(id);
   }
 }

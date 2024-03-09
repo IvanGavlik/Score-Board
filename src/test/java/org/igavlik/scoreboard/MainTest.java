@@ -97,6 +97,22 @@ public class MainTest extends RepoTest {
   }
 
   @Test
+  public void canNoStartMatchInProgressGuessTeamSame() {
+    Match meca = new FootballMatch("Mexico", "Canada");
+    Match spma = new FootballMatch("Spain", "Mexico");
+
+    MatchService matchService = new FootballMatchService(MatchRepoInMemory.INSTANCE);
+    matchService.startMatch(meca);
+    matchService.startMatch(spma);
+
+    ScoreBoard scoreBoard = new FootballLiveScoreBoard(MatchRepoInMemory.INSTANCE);
+    List<Match> matchList = scoreBoard.getMatchesInProgress();
+
+    Assertions.assertEquals(1, matchList.size());
+    Assertions.assertEquals(meca, matchList.get(0));
+  }
+
+  @Test
   public void canStarSecondMatchAfterFirstIsDone() {
     Match meca = new FootballMatch("Mexico", "Canada");
     Match meca1 = new FootballMatch("Mexico", "Canada");

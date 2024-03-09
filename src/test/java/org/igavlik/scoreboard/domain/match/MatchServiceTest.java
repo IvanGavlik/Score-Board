@@ -36,7 +36,7 @@ public class MatchServiceTest extends RepoTest {
   @Test
   public void starSecondMatch() {
     Match m = new FootballMatch("a", "b");
-    Match m2 = new FootballMatch("a", "c");
+    Match m2 = new FootballMatch("d", "c");
 
     MatchService matchService = new FootballMatchService(matchRepo);
     matchService.startMatch(m);

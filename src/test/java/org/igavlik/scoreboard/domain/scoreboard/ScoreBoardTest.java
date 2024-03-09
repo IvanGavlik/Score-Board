@@ -112,19 +112,19 @@ public class ScoreBoardTest extends RepoTest {
     m1.updateMatchScore(1, 1);
     matchRepo.save(m1);
 
-    Match m2 = new FootballMatch("a", "d");
+    Match m2 = new FootballMatch("c", "d");
     m2.startMatch();
     m2.updateMatchScore(1, 1);
     matchRepo.save(m2);
   }
 
   private void totalScoresDiff() {
-    Match m1 = new FootballMatch("a", "i");
+    Match m1 = new FootballMatch("i", "i");
     m1.startMatch();
     m1.updateMatchScore(2, 1);
     matchRepo.save(m1);
 
-    Match m2 = new FootballMatch("a", "j");
+    Match m2 = new FootballMatch("k", "l");
     m2.startMatch();
     m2.updateMatchScore(4, 0);
     matchRepo.save(m2);

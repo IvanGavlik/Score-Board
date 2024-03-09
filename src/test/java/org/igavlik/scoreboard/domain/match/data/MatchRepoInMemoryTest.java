@@ -40,11 +40,11 @@ public class MatchRepoInMemoryTest {
 
 
   @Test
-  public void testSaveAlreadyExist() {
+  public void testSaveTwoMatchesSameTeams() {
     matchRepo.save(new FootballMatch("a", "c"));
     matchRepo.save(new FootballMatch("a", "c"));
     int all = getAll().size();
-    Assertions.assertEquals(1, all);
+    Assertions.assertEquals(2, all);
   }
 
   @Test
@@ -57,7 +57,7 @@ public class MatchRepoInMemoryTest {
   @Test
   public void testSaveTwo() {
     matchRepo.save(new FootballMatch("a", "c"));
-    matchRepo.save(new FootballMatch("a", "b"));
+    matchRepo.save(new FootballMatch("b", "b"));
     int all = getAll().size();
     Assertions.assertEquals(2, all);
   }
@@ -202,7 +202,7 @@ public class MatchRepoInMemoryTest {
     var match = new FootballMatch("a", "c");
     matchRepo.save(match);
 
-    var match2 = new FootballMatch("b", "c");
+    var match2 = new FootballMatch("b", "d");
     matchRepo.save(match2);
 
     List<Match> matchList = matchRepo.filter(null, null);
@@ -232,7 +232,7 @@ public class MatchRepoInMemoryTest {
     match.updateMatchScore(1, 1);
     matchRepo.save(match);
 
-    var match2 = new FootballMatch("b", "c");
+    var match2 = new FootballMatch("b", "d");
     match2.startMatch();
     match2.updateMatchScore(2, 1);
     matchRepo.save(match2);
@@ -262,9 +262,7 @@ public class MatchRepoInMemoryTest {
     matchRepo.save(match3);
 
     Predicate<Match> homeTeamA = el -> el.getHomeTeam().equals("a");
-    Comparator<Match> byTotalScoreDes = (el1, el2) ->
-        (el2.getHomeTeamScore() + el2.getAwayTeamScore())
-            - (el1.getHomeTeamScore() + el1.getAwayTeamScore());
+    Comparator<Match> byTotalScoreDes = (el1, el2) -> el2.getTotalScore() - el1.getTotalScore();
     List<Match> matchList = matchRepo.filter(homeTeamA, byTotalScoreDes);
     Assertions.assertEquals(2, matchList.size());
     Assertions.assertEquals("a", matchList.get(0).getHomeTeam());

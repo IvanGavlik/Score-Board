@@ -3,7 +3,9 @@ package org.igavlik.scoreboard.domain.match.data;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.igavlik.scoreboard.data.Repo;
@@ -13,8 +15,7 @@ public final class MatchRepoInMemory implements Repo<Match> {
 
   public final static MatchRepoInMemory INSTANCE = new MatchRepoInMemory();
 
-  public final static Comparator<Match> SORT_HOME_TEAM = (e1, e2) -> e1.getHomeTeam()
-      .compareTo(e2.getAwayTeam());
+  public final static Comparator<Match> SORT_HOME_TEAM = Comparator.comparing(Match::getHomeTeam);
 
 
   // fast retrieval and update
@@ -29,6 +30,14 @@ public final class MatchRepoInMemory implements Repo<Match> {
   @Override
   public void save(Match match) {
     if (match == null) {
+      return;
+    }
+    BiPredicate<Match, Match> findSameInProgress = Match::isTeamInTwoMatchesWhereOneIsInProgress;
+    Optional<Match> existAndInProgress = this.data.stream()
+        .filter(el -> findSameInProgress.test(el, match))
+        .findAny();
+
+    if (existAndInProgress.isPresent()) {
       return;
     }
     this.data.add(match);

@@ -19,7 +19,8 @@ public class FootballMatchService implements MatchService {
     if (match == null) {
       return;
     }
-    Predicate<Match> findSameInProgress = el -> el.equals(match) && el.isInProgress();
+    Predicate<Match> findSameInProgress = el -> Match.isTeamInTwoMatchesWhereOneIsInProgress(el,
+        match);
     Optional<Match> existAndInProgress = matchRepo
         .filter(findSameInProgress, null)
         .stream()
