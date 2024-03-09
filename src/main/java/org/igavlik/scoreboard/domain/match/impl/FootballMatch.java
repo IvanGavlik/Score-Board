@@ -100,11 +100,12 @@ public class FootballMatch implements Match {
       return false;
     }
     FootballMatch that = (FootballMatch) o;
-    return Objects.equals(homeTeam, that.homeTeam) && Objects.equals(awayTeam, that.awayTeam);
+    return Objects.equals(homeTeam, that.homeTeam) && Objects.equals(awayTeam, that.awayTeam)
+        && Objects.equals(inProgress, that.inProgress);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(homeTeam, awayTeam);
+    return Objects.hash(homeTeam, awayTeam, inProgress);
   }
 }
