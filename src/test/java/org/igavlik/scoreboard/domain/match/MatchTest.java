@@ -294,17 +294,13 @@ public class MatchTest {
 
   @Test
   public void teamInTwoMatchesNullInput() {
-    boolean haveTeam = Match.isTeamInTwoMatchesWhereFirstIsInProgress(null, null);
-    Assertions.assertFalse(haveTeam);
+    Assertions.assertFalse(Match.isTeamInTwoMatchesWhereFirstIsInProgress(null, null));
 
     Match m1 = new FootballMatch("a", "b");
     m1.startMatch();
-
-    haveTeam = Match.isTeamInTwoMatchesWhereFirstIsInProgress(m1, null);
-    Assertions.assertFalse(haveTeam);
-
-    haveTeam = Match.isTeamInTwoMatchesWhereFirstIsInProgress(null, m1);
-    Assertions.assertFalse(haveTeam);
+    ;
+    Assertions.assertFalse(Match.isTeamInTwoMatchesWhereFirstIsInProgress(m1, null));
+    Assertions.assertFalse(Match.isTeamInTwoMatchesWhereFirstIsInProgress(null, m1));
   }
 
 }
