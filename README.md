@@ -43,5 +43,5 @@ SpotBugs is an open source tool used to perform static analysis on Java code.
 
 ## Build lib from source
 
-* `mvn package"`
+* `mvn package`
 * lib is in `target/ScoreBoard-1.0.jar`

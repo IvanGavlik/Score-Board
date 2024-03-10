@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Integration tests and examples How to use this lib
  */
-public class MainTest extends RepoTest {
+public class AppTest extends RepoTest {
 
   @Test
   public void basic() {
