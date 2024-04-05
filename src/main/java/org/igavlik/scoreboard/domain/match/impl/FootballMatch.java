@@ -3,7 +3,9 @@ package org.igavlik.scoreboard.domain.match.impl;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import org.igavlik.scoreboard.domain.match.Match;
+import org.springframework.stereotype.Component;
 
+@Component
 public class FootballMatch implements Match {
 
   private static int idCounter = 0;

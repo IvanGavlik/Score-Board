@@ -5,7 +5,9 @@ import java.util.function.Predicate;
 import org.igavlik.scoreboard.data.Repo;
 import org.igavlik.scoreboard.domain.match.Match;
 import org.igavlik.scoreboard.domain.match.MatchService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class FootballMatchService implements MatchService {
 
   private Repo<Match> matchRepo;

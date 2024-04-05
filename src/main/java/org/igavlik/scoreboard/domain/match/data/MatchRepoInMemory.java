@@ -10,7 +10,9 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.igavlik.scoreboard.data.Repo;
 import org.igavlik.scoreboard.domain.match.Match;
+import org.springframework.stereotype.Component;
 
+@Component
 public final class MatchRepoInMemory implements Repo<Match> {
 
   public final static MatchRepoInMemory INSTANCE = new MatchRepoInMemory();

@@ -5,7 +5,9 @@ import java.util.List;
 import org.igavlik.scoreboard.data.Repo;
 import org.igavlik.scoreboard.domain.match.Match;
 import org.igavlik.scoreboard.domain.scoreboard.ScoreBoard;
+import org.springframework.stereotype.Component;
 
+@Component
 public class FootballLiveScoreBoard implements ScoreBoard {
 
   private Repo<Match> matchRepo;
